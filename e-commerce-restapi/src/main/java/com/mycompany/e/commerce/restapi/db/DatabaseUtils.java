@@ -14,19 +14,57 @@ import java.sql.*;
  */
 public class DatabaseUtils {
     
-    public static ResultSet retrieveQueryResults(Connection connection, final String sql) {
-        Statement statement = null;
-        try {
-            statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sql);
-            return resultSet;
+    public static boolean performDBSubmitCC(Connection connection, String sql, String... params){
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement(sql);
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+
+            int i = 1;
+            for (String param : params) {
+
+                if(i==1){
+                     preparedStatement.setInt(i++, Integer.valueOf(param));
+                }
+                else{
+                    preparedStatement.setString(i++, param);
+                }
+
+            }
+
+            return preparedStatement.executeUpdate() > 0 ;
         }
-        return null;
+        catch (SQLException e) {
+            return false;
+        }
+    }  
+    
+    public static int performDBSubmitCustomer(Connection connection, String sql, String... params){
+        PreparedStatement preparedStatement = null;
+        int cid = 0;
+        try{
+            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
+
+            int i = 1;
+            for (String param : params) {
+
+                preparedStatement.setString(i++, param);
+                
+                ResultSet rs = preparedStatement.getGeneratedKeys();
+                if(rs.next()){
+                    cid = Integer.parseInt(rs.getString(1));
+                }
+
+            }
+
+            preparedStatement.executeUpdate();
+            
+            return cid;
+            
+        }
+        catch (SQLException e) {
+            return -1;
+        }
     }
-    
-    
 }
