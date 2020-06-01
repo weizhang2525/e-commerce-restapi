@@ -4,6 +4,9 @@
     Author     : weizhang
 --%>
 
+<%@page import="java.util.Iterator"%>
+<%@page import="com.mycompany.e.commerce.restapi.model.Product"%>
+<%@page import="java.util.Map"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -34,6 +37,7 @@
         
     </head>
     <body>
+
         <div class = "row">
             <div class = "col-md-7">
                 <form class = "container form"  method = "POST" action = "/e-commerce-restapi/restapi/submitform" >
@@ -141,7 +145,19 @@
             <div class = "col-md-4 cart">
                 <div class = "container" id = "cart">
                     <h4>Cart</h4>
+                    <%
+                        Map<Product, Integer> cart = (Map<Product, Integer>) session.getAttribute("cart");
+                        Iterator cartIterator = cart.entrySet().iterator();
+                        while(cartIterator.hasNext()){ 
+                            Map.Entry data = (Map.Entry)cartIterator.next(); 
+                            Product p = (Product)data.getKey();
+                            int quantity = cart.get(p); %>
+                            <p>Product: <%out.print(p.getPid());%> Name: <%out.print(p.getName());%> Price: <%out.print(p.getPrice());%> Quantity: <%out.print(quantity);%></p>
+                    <%}
+                    %>
                     
+                        
+                   
                     
                 </div>
             </div>

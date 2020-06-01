@@ -7,9 +7,12 @@ package com.mycompany.e.commerce.restapi;
 import javax.ws.rs.*;
 import com.mycompany.e.commerce.restapi.model.Form;
 import com.mycompany.e.commerce.restapi.model.Order;
+import com.mycompany.e.commerce.restapi.model.Product;
 import com.mycompany.e.commerce.restapi.service.CheckoutService;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Context;
@@ -41,15 +44,26 @@ public class CheckoutResource {
     HttpServletRequest request){
         HttpSession session = request.getSession();
         Form form = new Form(fname, lname, email, phone, address1, city, state, zip, ccnum, cvv, expiration);
+        List<Order> orders = new ArrayList<Order>();
+        
+        Map<Product, Integer> cart = (Map<Product, Integer>)session.getAttribute("cart");
+        Iterator cartIterator = cart.entrySet().iterator();
+        while(cartIterator.hasNext()){
+                Map.Entry data = (Map.Entry)cartIterator.next();
+                Product p = (Product)data.getKey();
+                int quantity = cart.get(p);
+                Order o = new Order(p.getPid(), quantity, p.getPrice());
+                orders.add(o);
+        }
         
 //        List<Order> orders = (ArrayList<Order>)session.getAttribute("cart");
 
-        List<Order> orders = new ArrayList<Order>();
+
         
-        Order order1 = new Order("1A", 3, 2.23);
-        Order order2 = new Order("2R", 2, 3.23);
-        orders.add(order1);
-        orders.add(order2);
+//        Order order1 = new Order("1A", 3, 2.23);
+//        Order order2 = new Order("2R", 2, 3.23);
+//        orders.add(order1);
+//        orders.add(order2);
         
         if(CheckoutService.insertForm(form, orders)){
             return Response.ok().entity("Order Added Successfully").build();
