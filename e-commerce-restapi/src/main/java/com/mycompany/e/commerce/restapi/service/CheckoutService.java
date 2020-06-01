@@ -24,19 +24,31 @@ import java.util.List;
  */
 public class CheckoutService {
     
-    public static void insertForm(Form form, List<Order> order){
+    public static boolean insertForm(Form form, List<Order> order){
+        boolean updateStatus = true;
+        
         Connection connection = DatabaseConnector.getConnection();
         String ccSql = "INSERT INTO creditcards (cid, ccnum, cvv, expiration) VALUES (?, ?, ?, ?)";
         String customerSql = "INSERT INTO customers (fname, lname, email, phone, street_address, city, us_state, zip) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         String orderSql = "INSERT INTO orders (cid, ccnum, pid, quantity, order_date, total) VALUES (?, ?, ?, ?, ?, ?)";
         
+        java.util.Date dt = new java.util.Date();
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String currentTime = sdf.format(dt);
+        
         int cid = DatabaseUtils.performDBSubmitCustomer(connection, customerSql, form.getFname(), form.getLname(), form.getEmail(), form.getPhone(), form.getAddress1(), form.getState(), form.getCity(), form.getZip());
+        
+        System.out.println(cid);
         
         DatabaseUtils.performDBSubmitCC(connection, ccSql, String.valueOf(cid), form.getCcnum(), form.getCvv(), form.getExpiration());
         
-        for(int i = 0; i < order.size(); i++){
-            DatabaseUtils.performDBSubmitOrder(connection, orderSql, String.valueOf(cid), form.getCcnum(), order.get(i).getPid(), String.valueOf(order.get(i).getQuantity()), order.get(i).getDate(), String.valueOf(order.get(i).getTotal()));
+        for(Order o: order){
+            updateStatus = DatabaseUtils.performDBSubmitOrder(connection, orderSql, String.valueOf(cid), form.getCcnum(), o.getPid(), String.valueOf(o.getQuantity()), currentTime, String.valueOf(o.getTotal()));
         }
         
+        return updateStatus;
+        
     }
+    
+    
 }

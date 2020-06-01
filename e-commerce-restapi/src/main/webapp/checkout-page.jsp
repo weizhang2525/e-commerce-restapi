@@ -16,7 +16,7 @@
         <script src = "js/form.js"></script>
 
 
-    <script>
+<!--    <script>
         $(document).ready(function(){
             $.get("CartSession", function(data){
                 var cartUI = $("#cart");
@@ -30,13 +30,13 @@
                 cartUI.append("<p class = 'total'>Total: $" + total + "</p>")
             });
         });
-    </script>
+    </script>-->
         
     </head>
     <body>
         <div class = "row">
             <div class = "col-md-7">
-                <form class = "container form"  method = "POST" action = "FormSubmission" >
+                <form class = "container form"  method = "POST" action = "/e-commerce-restapi/restapi/submitform" >
                     <h3>Order Form</h3>
                     <div class = "form-row">
                         <div class="form-group col-md-6">

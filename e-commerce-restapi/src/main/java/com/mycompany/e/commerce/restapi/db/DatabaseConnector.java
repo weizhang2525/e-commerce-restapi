@@ -20,7 +20,7 @@ public class DatabaseConnector {
     public static Connection getConnection() {
 
         try {
-            Class.forName("org.mariadb.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

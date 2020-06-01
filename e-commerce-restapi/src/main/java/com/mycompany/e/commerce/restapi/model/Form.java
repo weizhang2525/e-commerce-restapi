@@ -22,6 +22,21 @@ public class Form {
     private String cvv;
     private String expiration;
 
+    public Form(String fname, String lname, String email, String phone, String address1, String state, String city, String zip, String ccnum, String cvv, String expiration) {
+        this.fname = fname;
+        this.lname = lname;
+        this.email = email;
+        this.phone = phone;
+        this.address1 = address1;
+        this.state = state;
+        this.city = city;
+        this.zip = zip;
+        this.ccnum = ccnum;
+        this.cvv = cvv;
+        this.expiration = expiration;
+    }
+
+    
     public void setPhone(String phone){
         this.phone = phone;
     }

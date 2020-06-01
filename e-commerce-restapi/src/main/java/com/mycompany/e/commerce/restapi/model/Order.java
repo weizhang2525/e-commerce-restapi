@@ -17,6 +17,13 @@ public class Order {
     private String date;
     private double total;
     private double price;
+
+    public Order(String pid, int quantity,  double price) {
+        this.pid = pid;
+        this.quantity = quantity;
+        this.price = price;
+    }
+    
     
     public double getPrice(){
         return price;
@@ -39,6 +46,7 @@ public class Order {
     }
 
     public double getTotal() {
+        total = Math.round(price * quantity*100.0)/100.0;
         return total;
     }
 

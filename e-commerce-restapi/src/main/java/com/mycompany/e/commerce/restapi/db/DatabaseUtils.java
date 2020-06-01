@@ -39,6 +39,34 @@ public class DatabaseUtils {
         }
     }  
     
+    public static boolean performDBSubmitOrder(Connection connection, String sql, String... params){
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement(sql);
+
+
+            int i = 1;
+            for (String param : params) {
+
+                if(i==1 || i ==4){
+                     preparedStatement.setInt(i++, Integer.valueOf(param));
+                }
+                else if(i == 6){
+                    preparedStatement.setDouble(i++, Double.valueOf(param));
+                }
+                else{
+                    preparedStatement.setString(i++, param);
+                }
+
+            }
+
+            return preparedStatement.executeUpdate() > 0 ;
+        }
+        catch (SQLException e) {
+            return false;
+        }
+    }  
+    
     public static int performDBSubmitCustomer(Connection connection, String sql, String... params){
         PreparedStatement preparedStatement = null;
         int cid = 0;
@@ -50,15 +78,14 @@ public class DatabaseUtils {
             for (String param : params) {
 
                 preparedStatement.setString(i++, param);
-                
-                ResultSet rs = preparedStatement.getGeneratedKeys();
-                if(rs.next()){
-                    cid = Integer.parseInt(rs.getString(1));
-                }
-
             }
 
             preparedStatement.executeUpdate();
+            
+             ResultSet rs = preparedStatement.getGeneratedKeys();
+            if(rs.next()){
+                cid = Integer.parseInt(rs.getString(1));
+            }
             
             return cid;
             
