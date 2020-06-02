@@ -24,9 +24,9 @@ public class DatabaseConnector {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
         try {
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/Nuance9?useSSL=false&serverTimezone=PST",
-                    "test", "test");
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/Nuance9?useSSL=false&serverTimezone=PST", "test", "test");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

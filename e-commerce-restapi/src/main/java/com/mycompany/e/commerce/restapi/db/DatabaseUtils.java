@@ -5,6 +5,7 @@
  */
 package com.mycompany.e.commerce.restapi.db;
 
+import java.io.Console;
 import java.sql.*;
 
 
@@ -92,6 +93,24 @@ public class DatabaseUtils {
         }
         catch (SQLException e) {
             return -1;
+        }
+    }
+
+    /**
+     * This is where the DB is queried and the results are returned.
+     */
+    public static ResultSet performDBGetAllProduct(Connection connection, String sqlQuery){
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.executeQuery();
+            ResultSet queryResult = preparedStatement.getResultSet();
+            return queryResult;
+            
+        } catch (SQLException e) {
+            System.out.println("[ERROR]: " + e.toString());
+            e.printStackTrace();
+            return null;
         }
     }
 }

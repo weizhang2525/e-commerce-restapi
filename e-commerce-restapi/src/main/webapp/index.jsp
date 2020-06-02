@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,12 +23,23 @@
 
             console.log("TEST 0 - LOADED")
 
-            $.get("HomePageServlet", function(data){
-                var homePageResponse = JSON.parse(data);
-                // console.log(homePageResponse)
-                generateProductCards(homePageResponse["productList"], "products-container");
-                generateProductCards(homePageResponse["recentlyVisitedList"], "recently-visited-container");
-            });
+            // This is where I call the RESTful Web Service, take note of the URL and the TYPE used here
+            // Look at ProductResource.java to see where the request is intercepted
+            $.ajax({
+                url: '/e-commerce-restapi/restapi/homepage/loadpage',
+                type: 'GET',
+                success: function(productList) {
+                    // Get the results from the service. In this case its an array of products
+                    console.log(productList);
+                    generateProductCards(productList, "products-container");
+                },
+                error: function() {
+                    alert("Error");
+                }
+                });
+
+                // generateProductCards(homePageResponse["recentlyVisitedList"], "recently-visited-container");
+
 
             // APON PUT YOUR CODE HERE
             function handleCardClick() {
@@ -56,11 +68,11 @@
                 
             }
 
-            function generateProductCards(productListJSON, container) {
+            function generateProductCards(productList, container) {
                 DOM_products_contaner = document.getElementById(container)
 
-                for (var i = 0; i < productListJSON.length; i++) {
-                    var product = productListJSON[i];
+                for (var i = 0; i < productList.length; i++) {
+                    var product = productList[i];
 
                     // Create the product card container with column formatting
                     new_product_container = this.document.createElement("div")
