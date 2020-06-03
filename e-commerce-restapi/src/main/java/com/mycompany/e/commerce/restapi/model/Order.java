@@ -24,6 +24,13 @@ public class Order {
         this.price = price;
     }
     
+    public Order(String pid, int quantity, double total, String date){
+        this.pid = pid;
+        this.quantity = quantity;
+        this.total = total;
+        this.date = date;
+    }
+    
     
     public double getPrice(){
         return price;

@@ -113,4 +113,19 @@ public class DatabaseUtils {
             return null;
         }
     }
+    
+    public static ResultSet performDBGetAllOrders(Connection connection, String sqlQuery){
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.executeQuery();
+            ResultSet queryResult = preparedStatement.getResultSet();
+            return queryResult;
+            
+        } catch (SQLException e) {
+            System.out.println("[ERROR]: " + e.toString());
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
