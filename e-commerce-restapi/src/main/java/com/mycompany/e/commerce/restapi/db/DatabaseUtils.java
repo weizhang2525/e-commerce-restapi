@@ -113,4 +113,20 @@ public class DatabaseUtils {
             return null;
         }
     }
+    
+    public static ResultSet performDBGetAllOrders(Connection connection, String sqlQuery, int customer){
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, customer);
+            preparedStatement.executeQuery();
+            ResultSet queryResult = preparedStatement.getResultSet();
+            return queryResult;
+            
+        } catch (SQLException e) {
+            System.out.println("[ERROR]: " + e.toString());
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

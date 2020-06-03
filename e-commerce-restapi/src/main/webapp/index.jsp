@@ -39,10 +39,17 @@
                 }
                 });
 
-                // generateProductCards(homePageResponse["recentlyVisitedList"], "recently-visited-container");
+                $.ajax({
+                type: 'GET',
+                url: 'UserSessionTrackingServlet',
+                success: function(data){
+                    console.log(data)
+                    var recentlyVisited = JSON.parse(data);
+                    generateProductCards(recentlyVisited, "recently-visited-container");
+                },
+                error: function(){ alert("Error"); }
+                });
 
-
-            // APON PUT YOUR CODE HERE
             function handleCardClick() {
                 var pid = this.classList[0]
                 console.log(pid);

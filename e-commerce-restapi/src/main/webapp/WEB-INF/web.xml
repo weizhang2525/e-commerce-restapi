@@ -13,6 +13,10 @@
         <servlet-name>CartSession</servlet-name>
         <url-pattern>/CartSession</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserSessionTrackingServlet</servlet-name>
+        <url-pattern>/UserSessionTrackingServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
@@ -34,6 +38,10 @@
     <servlet>
         <servlet-name>CartSession</servlet-name>
         <servlet-class>CartSession</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserSessionTrackingServlet</servlet-name>
+        <servlet-class>UserSessionTrackingServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Nuance 9 REST Service</servlet-name>
