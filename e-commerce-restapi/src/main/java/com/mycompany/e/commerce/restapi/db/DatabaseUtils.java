@@ -114,10 +114,11 @@ public class DatabaseUtils {
         }
     }
     
-    public static ResultSet performDBGetAllOrders(Connection connection, String sqlQuery){
+    public static ResultSet performDBGetAllOrders(Connection connection, String sqlQuery, int customer){
         PreparedStatement preparedStatement = null;
         try{
-            preparedStatement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, customer);
             preparedStatement.executeQuery();
             ResultSet queryResult = preparedStatement.getResultSet();
             return queryResult;

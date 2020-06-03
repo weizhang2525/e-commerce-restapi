@@ -5,7 +5,6 @@
  */
 package com.mycompany.e.commerce.restapi.model;
 
-import java.util.Date;
 
 /**
  *
@@ -24,11 +23,10 @@ public class Order {
         this.price = price;
     }
     
-    public Order(String pid, int quantity, double total, String date){
+    public Order(double total, String pid, int quantity) {
         this.pid = pid;
         this.quantity = quantity;
         this.total = total;
-        this.date = date;
     }
     
     

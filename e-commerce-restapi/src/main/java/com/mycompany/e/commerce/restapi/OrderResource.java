@@ -5,14 +5,8 @@
  */
 package com.mycompany.e.commerce.restapi;
 import javax.ws.rs.*;
-import com.mycompany.e.commerce.restapi.model.Form;
-import com.mycompany.e.commerce.restapi.model.Order;
-import com.mycompany.e.commerce.restapi.model.Product;
+import com.mycompany.e.commerce.restapi.model.CustomerOrder;
 import com.mycompany.e.commerce.restapi.service.OrderService;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.core.Context;
@@ -22,7 +16,7 @@ import javax.ws.rs.core.Response;
 
 /**
  *
- * @author weizhang
+ * @author jonathanlun
  */
 @Path("/confirmpage/")
 public class OrderResource {
@@ -37,11 +31,11 @@ public class OrderResource {
     @GET
     @Path("loadpage")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Order> getProducts(HttpServletRequest request){ 
+    public CustomerOrder getOrder(@Context HttpServletRequest request){ 
         HttpSession session = request.getSession();
         int customer = (Integer)(session.getAttribute("cid"));
-        ArrayList<Order> orderList = OrderService.getAllOrders(customer);
-        return orderList;
+        CustomerOrder cust = OrderService.getAllOrders(customer);
+        return cust;
     }
     
 }

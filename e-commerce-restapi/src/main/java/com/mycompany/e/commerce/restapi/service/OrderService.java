@@ -7,8 +7,8 @@ package com.mycompany.e.commerce.restapi.service;
 
 import com.mycompany.e.commerce.restapi.db.DatabaseConnector;
 import com.mycompany.e.commerce.restapi.db.DatabaseUtils;
-import com.mycompany.e.commerce.restapi.model.Product;
 import com.mycompany.e.commerce.restapi.model.Order;
+import com.mycompany.e.commerce.restapi.model.CustomerOrder;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -21,25 +21,37 @@ import java.sql.*;
  */
 public class OrderService {
     
-    public static ArrayList<Order> getAllOrders(int customer) {
+    public static CustomerOrder getAllOrders(int customer) {
         try {
             Connection connection = DatabaseConnector.getConnection();
-            String sqlQuery = "SELECT * FROM orders WHERE cid =";
-            sqlQuery += customer;
-            ResultSet queryResult = DatabaseUtils.performDBGetAllOrders(connection, sqlQuery);
+            String sqlQueryOrder = "SELECT * FROM orders WHERE cid (cid) VALUES (?)";
+            ResultSet orderResult = DatabaseUtils.performDBGetAllOrders(connection, sqlQueryOrder, customer);
             ArrayList<Order> orderList = new ArrayList<Order>();
-    
-            while(queryResult.next()) {
-                Order oneorder = new Order(queryResult.getString("pid"),
-                        queryResult.getInt("quantity"),
-                        queryResult.getDouble("total"),
-                        queryResult.getString("date"));
+            while(orderResult.next()) {
+                Order oneorder = new Order(orderResult.getDouble("total"),
+                        orderResult.getString("pid"),
+                        orderResult.getInt("quantity"));
                 orderList.add(oneorder);
             }
-
-            return orderList;
-
-        } catch (Exception e) {
+            String sqlQueryCustomer = "SELECT * FROM customers WHERE cid (cid) VALUES (?)";
+            ResultSet customerResult = DatabaseUtils.performDBGetAllOrders(connection, sqlQueryCustomer, customer);
+            customerResult.next();
+            CustomerOrder overall = new CustomerOrder(customerResult.getString("fname"),
+                                                        customerResult.getString("lname"),
+                                                        customerResult.getString("email"),
+                                                        customerResult.getString("phone"),
+                                                        customerResult.getString("street_address"),
+                                                        customerResult.getString("city"),
+                                                        customerResult.getString("us_state"),                                  
+                                                        customerResult.getString("zip"),
+                                                        orderList);
+            String sqlQueryCredit = "SELECT * FROM creditcards WHERE cid (cid) VALUES (?)";
+            ResultSet creditResult = DatabaseUtils.performDBGetAllOrders(connection, sqlQueryCredit, customer);
+            creditResult.next();
+            overall.setCcnum(creditResult.getString("ccnum"));
+            overall.setExpiration(creditResult.getString("expiration"));
+            return overall;
+        }catch (Exception e) {
             System.out.println("[ERROR]: " + e.toString());
             e.printStackTrace();
             return null;

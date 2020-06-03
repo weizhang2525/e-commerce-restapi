@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="com.mycompany.e.commerce.restapi.model.Order"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -20,7 +21,7 @@ and open the template in the editor.
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="css/order_info.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    
+    <!--
     <script>
         $(document).ready(function(){
             $.get("OrderConfirm", function(data){
@@ -63,6 +64,7 @@ and open the template in the editor.
             });
         });
     </script>
+    -->
 </head>
 
 <body>
