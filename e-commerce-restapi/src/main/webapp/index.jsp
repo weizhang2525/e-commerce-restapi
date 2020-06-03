@@ -38,10 +38,17 @@
                 }
                 });
 
-                // generateProductCards(homePageResponse["recentlyVisitedList"], "recently-visited-container");
+                $.ajax({
+                type: 'GET',
+                url: 'UserSessionTrackingServlet',
+                success: function(data){
+                    console.log(data)
+                    var recentlyVisited = JSON.parse(data);
+                    generateProductCards(recentlyVisited, "recently-visited-container");
+                },
+                error: function(){ alert("Error"); }
+                });
 
-
-            // APON PUT YOUR CODE HERE
             function handleCardClick() {
                 var pid = this.classList[0]
                 console.log(pid);
@@ -53,18 +60,18 @@
                 error: function(){ alert("Error"); }
                 });
                 
-                $.ajax({
-                type: 'POST',
-                data: { prod: pid },
-                url: 'productPage',
-                success: function(data){
-                    console.log(data);
-                },
-                error: function(){ alert("Error"); }
-                });
+                // $.ajax({
+                // type: 'POST',
+                // data: { prod: pid },
+                // url: 'productPage',
+                // success: function(data){
+                //     console.log(data);
+                // },
+                // error: function(){ alert("Error"); }
+                // });
                 
 //                window.location.replace("product-page.html");
-                window.location.href = "product-page.html";
+                // window.location.href = "product-page.html";
                 
             }
 
