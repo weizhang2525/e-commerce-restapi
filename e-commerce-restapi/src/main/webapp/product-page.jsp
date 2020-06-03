@@ -3,8 +3,14 @@
     Created on : Jun 1, 2020, 10:42:00 AM
     Author     : weizhang
 --%>
-
+<%@ page import="java.util.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="com.mycompany.e.commerce.restapi.service.ProductService"%>
+<%@page import="com.mycompany.e.commerce.restapi.model.Product" %>
+
+<%@page import="javax.ws.rs.core.MediaType"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="javax.ws.rs.*"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,38 +27,95 @@
     <script>
         $(document).ready(function() {
             
+            const queryString = window.location.search;
             
-            $.get("productPage", function(data){
-                console.log(data);
-                
-                
-                var array = data.split("@");
-                console.log("ARRAY");
-                console.log(array);
-                
-                var pid = array[0];
-                var subpid = pid.substring(0, 3);
-                var pname = array[1];
-                var price = array[2];
-                var dec = array[3];
-                var quantity = array[4];
-                var srcOne = array[5];
-                var srcTwo = array[6];
-                var srcThree = array[7];
-                var alt = array[8];
-                
-                $('#pid').text("Product ID: " + subpid);
-                $('#name').text(pname);
-                $('#price').text(price);
-                $('#descr').text(dec);
-                $('#first-image').attr("src", srcOne);
-                $('#second-image').attr("src", srcTwo);
-                $('#third-image').attr("src", srcThree);
-                
-                
-         
-            });
+            const urlParams = new URLSearchParams(queryString);
             
+            const id = urlParams.get("prod");
+            
+            console.log(id);
+           
+            
+            $.ajax({
+                url: '/e-commerce-restapi/restapi/findProduct/product',
+                type: 'GET',
+                success: function(productList) {
+                    // Get the results from the service. In this case its an array of products
+                    console.log(productList);
+                    
+                    allProducts = productList
+                    findProduct(allProducts, id)
+                    
+                },
+                error: function() {
+                    alert("Error");
+                }
+                });
+            
+//            $.get("productPage", function(data){
+//                
+//                console.log("HEEEELLLLLOOOOO");
+//                console.log(data);
+//                
+//                
+//                var array = data.split("@");
+//                console.log("ARRAY");
+//                console.log(array);
+//                
+//                var pid = array[0];
+//                var subpid = pid.substring(0, 3);
+//                var pname = array[1];
+//                var price = array[2];
+//                var dec = array[3];
+//                var quantity = array[4];
+//                var srcOne = array[5];
+//                var srcTwo = array[6];
+//                var srcThree = array[7];
+//                var alt = array[8];
+//                
+//                $('#pid').text("Product ID: " + subpid);
+//                $('#name').text(pname);
+//                $('#price').text(price);
+//                $('#descr').text(dec);
+//                $('#first-image').attr("src", srcOne);
+//                $('#second-image').attr("src", srcTwo);
+//                $('#third-image').attr("src", srcThree);
+//                
+//                
+//         
+//            });
+            function findProduct(productList, id){
+                console.log("Looking for");
+                console.log(id);
+                console.log("in");
+                console.log(productList);
+                for (var i = 0; i < productList.length; i++) {
+                    var product = productList[i];
+                    
+                    if(product["pid"]===id){
+                        var pid = product["pid"];
+                        var pname = product["name"];
+                        var price = product["price"];
+                        var dec = product["desc"];
+                        var quantity = product["quantity"];
+                        var srcOne = product["srcOne"];
+                        var srcTwo = product["srcTwo"];
+                        var srcThree = product["srcThree"];
+                        var alt = product["alt"];
+                        
+                        
+                        $('#pid').text("Product ID: " + pid);
+                        $('#name').text(pname);
+                        $('#price').text("$ "+price);
+                        $('#descr').text(dec);
+                        $('#first-image').attr("src", srcOne);
+                        $('#second-image').attr("src", srcTwo);
+                        $('#third-image').attr("src", srcThree);
+                        break;
+                    }
+                
+                }
+            }
             
             $("#addToCart").click(function() {                
                     var pid = $('#pid').text();
@@ -85,7 +148,10 @@
     </script>
 </head>
 
+
 <body>
+    
+    
     <!-- Nav Bar -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
@@ -104,7 +170,7 @@
     </nav>
 
     <!-- Product info on the top -->
-
+    
     
 
     <div class="Product">
@@ -140,6 +206,8 @@
                 <h2 id="name"></h2>
                 <p id="prd-color"></p>
                 <p id="descr"></p>
+                <!--console.log("");-->
+                
                 <img src ="assets/5-star-png-12.png" class="rating">
                 <p id = "pid"></p>
                 <p class="price" id="price"></p>

@@ -22,6 +22,7 @@
         $(document).ready(function(){
 
             console.log("TEST 0 - LOADED")
+            console.log("HELLO")
 
             // This is where I call the RESTful Web Service, take note of the URL and the TYPE used here
             // Look at ProductResource.java to see where the request is intercepted
@@ -45,26 +46,28 @@
             function handleCardClick() {
                 var pid = this.classList[0]
                 console.log(pid);
-                $.ajax({
-                type: 'POST',
-                data: { pid: pid },
-                url: 'UserSessionTrackingServlet',
-                success: function(data){},
-                error: function(){ alert("Error"); }
-                });
+//                $.ajax({
+//                type: 'POST',
+//                data: { pid: pid },
+//                url: 'UserSessionTrackingServlet',
+//                success: function(data){},
+//                error: function(){ alert("Error"); }
+//                });
+//                
+//                $.ajax({
+//                type: 'POST',
+//                data: { prod: pid },
+//                url: '/e-commerce-restapi/restapi/productPage/getProduct',
+//                success: function(data){
+//                    console.log(data);
+//                },
+//                error: function(){ alert("Error"); }
+//                });
                 
-                $.ajax({
-                type: 'POST',
-                data: { prod: pid },
-                url: 'productPage',
-                success: function(data){
-                    console.log(data);
-                },
-                error: function(){ alert("Error"); }
-                });
-                
+                   
 //                window.location.replace("product-page.html");
-                window.location.href = "product-page.html";
+                window.location.href = "product-page.jsp?prod="+pid;
+                  
                 
             }
 
