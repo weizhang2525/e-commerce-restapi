@@ -6,10 +6,6 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.console;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.sql.*;
+import com.mycompany.e.commerce.restapi.model.CustomerOrder;
+import com.mycompany.e.commerce.restapi.model.Order;
 
 /**
  *

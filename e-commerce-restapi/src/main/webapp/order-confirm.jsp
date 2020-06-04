@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="com.mycompany.e.commerce.restapi.model.Order"%>
+<%@page import="com.mycompany.e.commerce.restapi.model.CustomerOrder"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -65,6 +65,78 @@ and open the template in the editor.
         });
     </script>
     -->
+    <script>
+        $(document).ready(function(){
+
+            console.log("TEST 0 - LOADED");
+
+            $.ajax({
+                url: '/e-commerce-restapi/restapi/orderpage/loadpage',
+                type: 'GET',
+                success: function(customer) {
+                    // Get the results from the service. In this case its an array of products
+                    console.log(customer);
+                    generateOrderConfirm(customer, "order");
+                },
+                error: function() {
+                    alert("Error");
+                }
+                });
+                
+            function generateOrderConfirm(customer, container) {
+                DOM_products_contaner = document.getElementById(container);
+                    
+                    //Products info
+                    order_details = this.document.createElement("h5");
+                    order_details.innerHTML = "Product Information";
+                    order_details = this.document.createElement("ul");
+                    for (var i = 0; i < customer.items.length; i++) {
+                        var product = customer[i];
+                        order_details = this.document.createElement("li");
+                        order_details.innerHTML = "Name: " + product.pid + " Quantity: " + product.quantity ;
+                    }
+                    
+                    DOM_products_contaner.appendChild(order_details);
+                    
+                    //Customer info
+                    customer_details = this.document.createElement("h5");
+                    customer_details.innerHTML = "Customer Information";
+                    
+                    customer_details = this.document.createElement("p");
+                    customer_details.classList.add("secondelem");
+                    customer_details.innerHTML = "Name: " + customer.fname + " " + customer.lname;
+                    
+                    customer_details = this.document.createElement("p");
+                    customer_details.classList.add("secondelem");
+                    customer_details.innerHTML = "Email: " + customer.email;
+                    
+                    customer_details = this.document.createElement("p");
+                    customer_details.classList.add("secondelem");
+                    customer_details.innerHTML = "Phone: " + customer.phone;
+                    
+                    customer_details = this.document.createElement("p");
+                    customer_details.classList.add("secondelem");
+                    customer_details.innerHTML = "Address: " + customer.street_address + "</br>" + customer.city + ", " + customer.state + " " + customer.zip;
+                    
+                    DOM_products_contaner.appendChild(customer_details);
+                    
+                    //Credit Card info
+                    cc_details = this.document.createElement("h5");
+                    cc_details.innerHTML = "Credit Card Information";
+                    
+                    cc_details = this.document.createElement("p");
+                    cc_details.classList.add("secondelem");
+                    cc_details.innerHTML = "Credit Card Number: " + customer.ccnum;
+                    
+                    cc_details = this.document.createElement("p");
+                    cc_details.classList.add("secondelem");
+                    cc_details.innerHTML = "Credit Card Expiration: " + customer.expiration;
+
+                    DOM_products_contaner.appendChild(cc_details);
+                }
+            }
+        });
+    </script>
 </head>
 
 <body>

@@ -16,7 +16,7 @@ public class CustomerOrder {
     private String lname;
     private String email;
     private String phone;
-    private String address1;
+    private String street_address;
     private String state;
     private String city;
     private String zip;
@@ -24,12 +24,12 @@ public class CustomerOrder {
     private String expiration;
     private ArrayList<Order> items;
     
-    public CustomerOrder(String fname, String lname, String email, String phone, String address1, String city, String state, String zip, ArrayList<Order> items) {
+    public CustomerOrder (String fname, String lname, String email, String phone, String street_address, String city, String state, String zip, ArrayList<Order> items) {
         this.fname = fname;
         this.lname = lname;
         this.email = email;
         this.phone = phone;
-        this.address1 = address1;
+        this.street_address = street_address;
         this.city = city;
         this.state = state;
         this.zip = zip;
@@ -52,8 +52,8 @@ public class CustomerOrder {
         this.email = email;
     }
 
-    public void setAdddress1(String address1) {
-        this.address1 = address1;
+    public void setStreet_address(String street_address) {
+        this.street_address = street_address;
     }
 
     public void setState(String state) {
@@ -93,8 +93,8 @@ public class CustomerOrder {
         return email;
     }
 
-    public String getAddress1() {
-        return address1;
+    public String getStreet_address() {
+        return street_address;
     }
 
     public String getState() {

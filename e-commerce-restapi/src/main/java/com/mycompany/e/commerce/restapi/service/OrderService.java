@@ -24,6 +24,7 @@ public class OrderService {
     public static CustomerOrder getAllOrders(int customer) {
         try {
             Connection connection = DatabaseConnector.getConnection();
+            //Get the orders based on cid value
             String sqlQueryOrder = "SELECT * FROM orders WHERE cid (cid) VALUES (?)";
             ResultSet orderResult = DatabaseUtils.performDBGetAllOrders(connection, sqlQueryOrder, customer);
             ArrayList<Order> orderList = new ArrayList<Order>();
@@ -33,6 +34,8 @@ public class OrderService {
                         orderResult.getInt("quantity"));
                 orderList.add(oneorder);
             }
+            
+            //Gets customer information based on cid
             String sqlQueryCustomer = "SELECT * FROM customers WHERE cid (cid) VALUES (?)";
             ResultSet customerResult = DatabaseUtils.performDBGetAllOrders(connection, sqlQueryCustomer, customer);
             customerResult.next();
@@ -45,12 +48,16 @@ public class OrderService {
                                                         customerResult.getString("us_state"),                                  
                                                         customerResult.getString("zip"),
                                                         orderList);
+            
+            //gets creditcard information based on cid
             String sqlQueryCredit = "SELECT * FROM creditcards WHERE cid (cid) VALUES (?)";
             ResultSet creditResult = DatabaseUtils.performDBGetAllOrders(connection, sqlQueryCredit, customer);
             creditResult.next();
             overall.setCcnum(creditResult.getString("ccnum"));
             overall.setExpiration(creditResult.getString("expiration"));
+            
             return overall;
+            
         }catch (Exception e) {
             System.out.println("[ERROR]: " + e.toString());
             e.printStackTrace();
