@@ -25,7 +25,7 @@ public class OrderService {
         try {
             Connection connection = DatabaseConnector.getConnection();
             //Get the orders based on cid value
-            String sqlQueryOrder = "SELECT * FROM orders WHERE cid (cid) VALUES (?)";
+            String sqlQueryOrder = "SELECT * FROM orders WHERE cid = (cid) VALUES (?)";
             ResultSet orderResult = DatabaseUtils.performDBGetAllOrders(connection, sqlQueryOrder, customer);
             ArrayList<Order> orderList = new ArrayList<Order>();
             while(orderResult.next()) {

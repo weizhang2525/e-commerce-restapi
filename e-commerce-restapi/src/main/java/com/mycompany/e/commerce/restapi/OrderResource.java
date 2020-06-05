@@ -31,10 +31,10 @@ public class OrderResource {
     @GET
     @Path("loadpage")
     @Produces(MediaType.APPLICATION_JSON)
-    public CustomerOrder getOrder(@Context HttpServletRequest request){ 
+    public CustomerOrder getOrder(@Context HttpServletRequest request){
         HttpSession session = request.getSession();
-        int customer = (Integer)(session.getAttribute("cid"));
-        CustomerOrder cust = OrderService.getAllOrders(customer);
+        CustomerOrder cust = OrderService.getAllOrders(15);
+        System.out.println("service");
         return cust;
     }
     
