@@ -5,7 +5,7 @@
  */
 package com.mycompany.e.commerce.restapi.model;
 
-import com.mycompany.e.commerce.restapi.model.Order;
+import com.mycompany.e.commerce.restapi.model.OrderProduct;
 import java.util.ArrayList;
 /**
  *
@@ -22,9 +22,10 @@ public class CustomerOrder {
     private String zip;
     private String ccnum;
     private String expiration;
-    private ArrayList<Order> items;
+    private ArrayList<OrderProduct> items;
+    private double total;
     
-    public CustomerOrder (String fname, String lname, String email, String phone, String street_address, String city, String state, String zip, ArrayList<Order> items) {
+    public CustomerOrder (String fname, String lname, String email, String phone, String street_address, String city, String state, String zip, ArrayList<OrderProduct> items, double total) {
         this.fname = fname;
         this.lname = lname;
         this.email = email;
@@ -34,6 +35,7 @@ public class CustomerOrder {
         this.state = state;
         this.zip = zip;
         this.items = items;
+        this.total = total;
     }
     
     public void setPhone(String phone){
@@ -76,8 +78,12 @@ public class CustomerOrder {
         this.expiration = expiration;
     }
     
-    public void setItems(ArrayList<Order> items) {
+    public void setItems(ArrayList<OrderProduct> items) {
         this.items = items;
+    }
+    
+    public void setTotal(double total){
+        this.total = total;
     }
    
 
@@ -121,7 +127,11 @@ public class CustomerOrder {
         return phone;
     }
     
-    public ArrayList<Order> getItems(){
+    public ArrayList<OrderProduct> getItems(){
         return items;
+    }
+    
+    public double getTotal(){
+        return total;
     }
 }

@@ -68,3 +68,23 @@
 .secondelem {
     padding-left: 30px;
 }
+
+.service-list {
+    list-style-type: none;
+    margin-left:0px;
+    padding-left:0px;
+    display: inline-block;
+}
+
+.service-list img
+{
+    max-width: 150px;
+    max-height: 150px;
+    float:left;
+}
+
+.service-list p {
+    text-align: right; 
+    display:inline-block;
+    padding: 0;
+}

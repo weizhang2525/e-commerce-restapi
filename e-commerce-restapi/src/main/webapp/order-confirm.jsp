@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="com.mycompany.e.commerce.restapi.model.CustomerOrder"%>
+<%@page import="com.mycompany.e.commerce.restapi.model.OrderProduct"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -74,7 +75,7 @@ and open the template in the editor.
                 url: '/e-commerce-restapi/restapi/confirmpage/loadpage',
                 type: 'GET',
                 success: function(customer) {
-                    // Get the results from the service. In this case its an array of products
+                    // Get the results from the service
                     console.log(customer);
                     generateOrderConfirm(customer, "order");
                 },
@@ -84,56 +85,65 @@ and open the template in the editor.
                 });
                 
             function generateOrderConfirm(customer, container) {
-                DOM_products_contaner = document.getElementById(container);
+                DOM_products_container = document.getElementById(container);
                     
                 //Products info
                 order_details = this.document.createElement("h5");
                 order_details.innerHTML = "Product Information";
                 order_details = this.document.createElement("ul");
-                
-                for (var i = 0; i < customer.getItems().length; i++) {
-                    var product = customer.getItems[i];
+                products = customer.items;
+                for (var i = 0; i < products.length; i++) {
                     order_details = this.document.createElement("li");
-                    order_details.innerHTML = "Name: " + product.pid + " Quantity: " + product.quantity ;
+                    order_details.classList.add("service-list");
+                    order_details = this.document.createElement("IMG");
+                    order_details.src = products[i].srcOne;
+                    DOM_products_container.appendChild(order_details);
+                    order_details = this.document.createElement("p")
+                    order_details.innerHTML = "Product ID: " + products[i].pid + " Name: " + products[i].name + " Quantity: " + products[i].quantity + " Price: " + products[i].price;
+                    DOM_products_container.appendChild(order_details);
                 }
 
-                DOM_products_contaner.appendChild(order_details);
 
                 //Customer info
                 customer_details = this.document.createElement("h5");
                 customer_details.innerHTML = "Customer Information";
-
+                DOM_products_container.appendChild(customer_details);
                 customer_details = this.document.createElement("p");
                 customer_details.classList.add("secondelem");
                 customer_details.innerHTML = "Name: " + customer.fname + " " + customer.lname;
-
+                DOM_products_container.appendChild(customer_details);
                 customer_details = this.document.createElement("p");
                 customer_details.classList.add("secondelem");
                 customer_details.innerHTML = "Email: " + customer.email;
-
+                DOM_products_container.appendChild(customer_details);
                 customer_details = this.document.createElement("p");
                 customer_details.classList.add("secondelem");
                 customer_details.innerHTML = "Phone: " + customer.phone;
-
+                DOM_products_container.appendChild(customer_details);
                 customer_details = this.document.createElement("p");
                 customer_details.classList.add("secondelem");
                 customer_details.innerHTML = "Address: " + customer.street_address + "</br>" + customer.city + ", " + customer.state + " " + customer.zip;
 
-                DOM_products_contaner.appendChild(customer_details);
+                DOM_products_container.appendChild(customer_details);
 
                 //Credit Card info
                 cc_details = this.document.createElement("h5");
                 cc_details.innerHTML = "Credit Card Information";
-
+                DOM_products_container.appendChild(cc_details);
                 cc_details = this.document.createElement("p");
                 cc_details.classList.add("secondelem");
                 cc_details.innerHTML = "Credit Card Number: " + customer.ccnum;
-
+                DOM_products_container.appendChild(cc_details);
                 cc_details = this.document.createElement("p");
                 cc_details.classList.add("secondelem");
                 cc_details.innerHTML = "Credit Card Expiration: " + customer.expiration;
 
-                DOM_products_contaner.appendChild(cc_details);
+                DOM_products_container.appendChild(cc_details);
+                
+                //Total
+                total_details = this.document.createElement("h3");
+                total_details.innerHTML = "Total: " + customer.total;
+                DOM_products_container.appendChild(total_details);
             }
         });
     </script>
@@ -149,7 +159,7 @@ and open the template in the editor.
             </a>
             <div class="nav-bar-links-container">
                 <div class="topnav" id="nav-bar-tabs">
-                    <a href="index.html">Apparel</a>
+                    <a href="index.jsp">Apparel</a>
                     <a href="about.html">About</a>
                 </div>
             </div>

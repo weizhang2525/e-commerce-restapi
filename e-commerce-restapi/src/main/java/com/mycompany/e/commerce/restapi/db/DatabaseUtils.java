@@ -129,4 +129,35 @@ public class DatabaseUtils {
             return null;
         }
     }
+    
+    public static ResultSet performDBGetProduct(Connection connection, String sqlQuery, String product){
+        PreparedStatement preparedStatement = null;
+        try{
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, product);
+            preparedStatement.executeQuery();
+            ResultSet queryResult = preparedStatement.getResultSet();
+            return queryResult;
+            
+        } catch (SQLException e) {
+            System.out.println("[ERROR]: " + e.toString());
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+     public static ResultSet performDBMaxCustomer(Connection connection, String sqlQuery){
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.executeQuery();
+            ResultSet queryResult = preparedStatement.getResultSet();
+            return queryResult;
+            
+        } catch (SQLException e) {
+            System.out.println("[ERROR]: " + e.toString());
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
