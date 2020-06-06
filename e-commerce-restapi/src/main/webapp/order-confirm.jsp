@@ -154,7 +154,7 @@ and open the template in the editor.
     <!-- Nav Bar -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index.jsp">
                 <img src="assets/Nuance9-Logo.png" alt="Nuance 9 Logo">
             </a>
             <div class="nav-bar-links-container">

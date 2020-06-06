@@ -69,6 +69,8 @@
     padding-left: 30px;
 }
 
+/*List for products**************/
+/*Source: https://stackoverflow.com/questions/16998947/putting-text-and-images-on-same-line-within-a-list-item-html-css*/
 .service-list {
     list-style-type: none;
     margin-left:0px;

@@ -9,6 +9,7 @@ import com.mycompany.e.commerce.restapi.model.Form;
 import com.mycompany.e.commerce.restapi.model.Order;
 import com.mycompany.e.commerce.restapi.model.Product;
 import com.mycompany.e.commerce.restapi.service.CheckoutService;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -64,9 +65,15 @@ public class CheckoutResource {
 //        Order order2 = new Order("2R", 2, 3.23);
 //        orders.add(order1);
 //        orders.add(order2);
-        
+// source: https://stackoverflow.com/questions/11116687/redirecting-to-a-page-using-restful-methods
         if(CheckoutService.insertForm(form, orders)){
-            return Response.ok().entity("Order Added Successfully").build();
+            try {
+                java.net.URI location = new java.net.URI("../order-confirm.jsp");
+                return Response.temporaryRedirect(location).build();
+            }
+            catch (URISyntaxException e){
+                e.printStackTrace(); 
+            }
         }
         
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();

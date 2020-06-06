@@ -155,12 +155,12 @@
     <!-- Nav Bar -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="index.jsp">
                 <img src="assets/Nuance9-Logo.png" alt="Nuance 9 Logo">
             </a>
             <div class="nav-bar-links-container">
                 <div class="topnav" id="nav-bar-tabs">
-                    <a href="index.html">Apparel</a>
+                    <a href="index.jsp">Apparel</a>
                     <a href="about.html">About</a>
                     <a href="checkout-page.jsp">Checkout</a>
                 </div>
