@@ -123,7 +123,7 @@
                     card_title_a = this.document.createElement("a")
                     card_title_a.classList.add("product-title")
                     card_title_a.classList.add("product-title-test")
-                    card_title_a.innerHTML = product.pname
+                    card_title_a.innerHTML = product.name
                     
                     // Price
                     card_cost = this.document.createElement("h5")
